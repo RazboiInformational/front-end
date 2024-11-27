@@ -20,10 +20,6 @@ export const getTotalLinks = async () => {
 		);
 
 		const res = await fetch(`${url}${query}`, {
-			cache: 'force-cache',
-			next: {
-				tags: ['links'],
-			},
 			headers: {
 				'x-api-key': process.env.API_KEY || '',
 			},

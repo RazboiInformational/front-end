@@ -80,13 +80,13 @@ export default async function HomePage({ page }: Args) {
 					</TableBody>
 				</Table>
 			</div>
-			<div className='mt-8'>
+			{links.totalPages > 1 && (<div className='mt-8'>
 				<PaginationWithLinks
 					page={links.page || 1}
-					pageSize={links.limit}
-					totalCount={links.totalDocs}
+					pageSize={links.limit || 25}
+					totalCount={links.totalDocs || 0}
 				/>
-			</div>
+			</div>)}
 		</>
 	);
 }
