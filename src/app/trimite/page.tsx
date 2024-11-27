@@ -1,6 +1,11 @@
+import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
 import TrimiteForm from './TrimitereForm';
+
+export const metadata: Metadata = {
+	title: 'Trimite un URL de pe TikTok',
+};
 
 export default function TrimitePage() {
 	return (
