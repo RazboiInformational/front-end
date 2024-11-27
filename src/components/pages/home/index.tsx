@@ -38,7 +38,7 @@ export default async function HomePage({ page }: Args) {
 					</h1>
 					<p className='text-lg md:text-center md:mx-auto w-full max-w-[600px] leading-7 [&:not(:first-child)]:mt-6'>
 						Mai jos găseşti videoclipuri de pe TikTok care îl susţin
-						pe Călin Georgescu sau Partidul pentru Tineri. Poți să
+						pe Călin Georgescu sau Partidul Oamenilor Tineri (POT). Poți să
 						ne ajuți prin folosirea Report sau prin comentarii care
 						îl demaschează.
 					</p>

@@ -1,7 +1,5 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { type ReactNode, useCallback } from 'react';
 import {
 	Pagination,
@@ -12,13 +10,6 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from './pagination';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from './select';
 
 export interface PaginationWithLinksProps {
 	pageSizeSelectOptions?: {
@@ -44,38 +35,15 @@ export interface PaginationWithLinksProps {
  * ```
  */
 export function PaginationWithLinks({
-	pageSizeSelectOptions,
 	pageSize,
 	totalCount,
 	page,
-	pageSearchParam,
 }: PaginationWithLinksProps) {
-	const router = useRouter();
-	const pathname = usePathname();
-	const searchParams = useSearchParams();
-
 	const totalPageCount = Math.ceil(totalCount / pageSize);
 
-	const buildLink = useCallback(
-		(newPage: number) => {
-			return `/pagina/${newPage}`;
-		},
-		[searchParams, pathname]
-	);
-
-	const navToPageSize = useCallback(
-		(newPageSize: number) => {
-			const key =
-				pageSizeSelectOptions?.pageSizeSearchParam || 'pageSize';
-			const newSearchParams = new URLSearchParams(
-				searchParams || undefined
-			);
-			newSearchParams.set(key, String(newPageSize));
-			newSearchParams.delete(pageSearchParam || 'page'); // Clear the page number when changing page size
-			router.push(`${pathname}?${newSearchParams.toString()}`);
-		},
-		[searchParams, pathname]
-	);
+	const buildLink = useCallback((newPage: number) => {
+		return `/pagina/${newPage}`;
+	}, []);
 
 	const renderPageNumbers = () => {
 		const items: ReactNode[] = [];
@@ -152,18 +120,7 @@ export function PaginationWithLinks({
 
 	return (
 		<div className='flex flex-col md:flex-row items-center gap-3 w-full'>
-			{pageSizeSelectOptions && (
-				<div className='flex flex-col gap-4 flex-1'>
-					<SelectRowsPerPage
-						options={pageSizeSelectOptions.pageSizeOptions}
-						setPageSize={navToPageSize}
-						pageSize={pageSize}
-					/>
-				</div>
-			)}
-			<Pagination
-				className={cn({ 'md:justify-end': pageSizeSelectOptions })}
-			>
+			<Pagination>
 				<PaginationContent className='max-sm:gap-0'>
 					<PaginationItem>
 						<PaginationPrevious
@@ -192,40 +149,6 @@ export function PaginationWithLinks({
 					</PaginationItem>
 				</PaginationContent>
 			</Pagination>
-		</div>
-	);
-}
-
-function SelectRowsPerPage({
-	options,
-	setPageSize,
-	pageSize,
-}: {
-	options: number[];
-	setPageSize: (newSize: number) => void;
-	pageSize: number;
-}) {
-	return (
-		<div className='flex items-center gap-4'>
-			<span className='whitespace-nowrap text-sm'>Rows per page</span>
-
-			<Select
-				value={String(pageSize)}
-				onValueChange={(value: any) => setPageSize(Number(value))}
-			>
-				<SelectTrigger>
-					<SelectValue placeholder='Select page size'>
-						{String(pageSize)}
-					</SelectValue>
-				</SelectTrigger>
-				<SelectContent>
-					{options.map((option) => (
-						<SelectItem key={option} value={String(option)}>
-							{option}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
 		</div>
 	);
 }
