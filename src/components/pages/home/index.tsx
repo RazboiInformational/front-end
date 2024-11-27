@@ -10,7 +10,9 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
+import Entry from './Entry';
 import { getLinks } from './getLinks';
+import ViewedProvider from './ViewedContext';
 
 type Args = {
 	page: string;
@@ -30,65 +32,57 @@ export default async function HomePage({ page }: Args) {
 	}
 
 	return (
-		<div className='mb-20'>
-			<div className='px-4 sm:px-6 md:px-8'>
-				<div className='relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32'>
-					<h1 className='text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight md:text-center dark:text-white'>
-						Război Informațional cu Federația Rusă
-					</h1>
-					<p className='text-lg md:text-center md:mx-auto w-full max-w-[600px] leading-7 [&:not(:first-child)]:mt-6'>
-						Mai jos găseşti videoclipuri de pe TikTok care îl susţin
-						pe Călin Georgescu sau Partidul Oamenilor Tineri (POT).
-						Poți să ne ajuți prin folosirea Report sau prin
-						comentarii care îl demaschează.
-					</p>
-					<div className='mt-8 flex gap-4 items-center md:justify-center'>
-						<Link href='/trimite'>
-							<Button>Trimite un URL de pe TikTok</Button>
-						</Link>
-						<Button variant='secondary'>Cum pot raporta?</Button>
+		<ViewedProvider>
+			<div className='mb-20'>
+				<div className='px-4 sm:px-6 md:px-8'>
+					<div className='relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32'>
+						<h1 className='text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight md:text-center dark:text-white'>
+							Război Informațional cu Federația Rusă
+						</h1>
+						<p className='text-lg md:text-center md:mx-auto w-full max-w-[600px] leading-7 [&:not(:first-child)]:mt-6'>
+							Mai jos găseşti videoclipuri de pe TikTok care îl
+							susţin pe Călin Georgescu sau Partidul Oamenilor
+							Tineri (POT). Poți să ne ajuți prin folosirea Report
+							sau prin comentarii care îl demaschează.
+						</p>
+						<div className='mt-8 flex gap-4 items-center md:justify-center'>
+							<Link href='/trimite'>
+								<Button>Trimite un URL de pe TikTok</Button>
+							</Link>
+							<Button variant='secondary'>
+								Cum pot raporta?
+							</Button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div className='mx-auto w-full max-w-[800px] mt-20'>
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>URL</TableHead>
-							<TableHead className='text-right'>
-								Creat pe
-							</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{(links.docs || []).map((doc) => (
-							<TableRow key={doc.id}>
-								<TableHead>
-									<a
-										href={doc.url}
-										target='_blank'
-										rel='noopener nofollow noreferrer'
-									>
-										{doc.url}
-									</a>
-								</TableHead>
+				<div className='mx-auto w-full max-w-[800px] mt-20'>
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>URL</TableHead>
 								<TableHead className='text-right'>
-									{new Date(doc.createdAt).toLocaleString()}
+									Creat pe
 								</TableHead>
+								<TableHead className='text-right w-[52px]'> </TableHead>
 							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</div>
-			{links.totalPages > 1 && (
-				<div className='mt-8'>
-					<PaginationWithLinks
-						page={links.page || 1}
-						pageSize={links.limit || 10}
-						totalCount={links.totalDocs || 0}
-					/>
+						</TableHeader>
+						<TableBody>
+							{(links.docs || []).map((doc) => (
+								<Entry key={doc.id} doc={doc} />
+							))}
+						</TableBody>
+					</Table>
 				</div>
-			)}
-		</div>
+				{links.totalPages > 1 && (
+					<div className='mt-8'>
+						<PaginationWithLinks
+							page={links.page || 1}
+							pageSize={links.limit || 10}
+							totalCount={links.totalDocs || 0}
+						/>
+					</div>
+				)}
+			</div>
+		</ViewedProvider>
 	);
 }
