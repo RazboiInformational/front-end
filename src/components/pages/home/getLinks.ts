@@ -17,7 +17,7 @@ export const getLinks = async (page: number) => {
 				},
 				sort: '-createdAt',
 				depth: 0,
-				limit: 25,
+				limit: 10,
 				page,
 			},
 			{ addQueryPrefix: true }

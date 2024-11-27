@@ -30,7 +30,7 @@ export default async function HomePage({ page }: Args) {
 	}
 
 	return (
-		<>
+		<div className='mb-20'>
 			<div className='px-4 sm:px-6 md:px-8'>
 				<div className='relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32'>
 					<h1 className='text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight md:text-center dark:text-white'>
@@ -38,9 +38,9 @@ export default async function HomePage({ page }: Args) {
 					</h1>
 					<p className='text-lg md:text-center md:mx-auto w-full max-w-[600px] leading-7 [&:not(:first-child)]:mt-6'>
 						Mai jos găseşti videoclipuri de pe TikTok care îl susţin
-						pe Călin Georgescu sau Partidul Oamenilor Tineri (POT). Poți să
-						ne ajuți prin folosirea Report sau prin comentarii care
-						îl demaschează.
+						pe Călin Georgescu sau Partidul Oamenilor Tineri (POT).
+						Poți să ne ajuți prin folosirea Report sau prin
+						comentarii care îl demaschează.
 					</p>
 					<div className='mt-8 flex gap-4 items-center md:justify-center'>
 						<Link href='/trimite'>
@@ -50,7 +50,7 @@ export default async function HomePage({ page }: Args) {
 					</div>
 				</div>
 			</div>
-			<div className='mx-auto w-full max-w-[800px] my-20'>
+			<div className='mx-auto w-full max-w-[800px] mt-20'>
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -80,13 +80,15 @@ export default async function HomePage({ page }: Args) {
 					</TableBody>
 				</Table>
 			</div>
-			{links.totalPages > 1 && (<div className='mt-8'>
-				<PaginationWithLinks
-					page={links.page || 1}
-					pageSize={links.limit || 25}
-					totalCount={links.totalDocs || 0}
-				/>
-			</div>)}
-		</>
+			{links.totalPages > 1 && (
+				<div className='mt-8'>
+					<PaginationWithLinks
+						page={links.page || 1}
+						pageSize={links.limit || 10}
+						totalCount={links.totalDocs || 0}
+					/>
+				</div>
+			)}
+		</div>
 	);
 }

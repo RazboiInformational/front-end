@@ -12,10 +12,13 @@ export const revalidate = 0;
 
 export async function generateStaticParams() {
 	const { totalDocs } = await getTotalLinks();
+	const totalPages = Math.ceil(totalDocs / 10);
 
-	return Array.from({ length: totalDocs }, (_, i) => i + 1).map((page) => ({
-		page: page.toString(),
-	}));
+	return Array.from({ length: Math.min(3, totalPages) }, (_, i) => i + 1).map(
+		(page) => ({
+			page: page.toString(),
+		})
+	);
 }
 
 export default async function Home({ params }: Args) {
