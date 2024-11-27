@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {CustomLink} from './link';
+import {Row} from './row';
 
 import { notFound } from 'next/navigation';
 
@@ -24,7 +24,6 @@ export default async function HomePage({ page }: Args) {
 	if (intPage < 1) {
 		notFound();
 	}
-
 	const links = await getLinks(intPage);
 
 	if (intPage > links.totalPages) {
@@ -60,18 +59,14 @@ export default async function HomePage({ page }: Args) {
 							<TableHead className='text-right'>
 								Creat pe
 							</TableHead>
+							<TableHead className='text-right'>
+								Vizualizat
+							</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{(links.docs || []).map((doc) => (
-							<TableRow key={doc.id}>
-								<TableHead>
-									<CustomLink doc={doc} />
-								</TableHead>
-								<TableHead className='text-right'>
-									{new Date(doc.createdAt).toLocaleString()}
-								</TableHead>
-							</TableRow>
+							<Row doc={doc} key={doc.id}/>
 						))}
 					</TableBody>
 				</Table>
