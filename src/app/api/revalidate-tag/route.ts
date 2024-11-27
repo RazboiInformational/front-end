@@ -16,6 +16,7 @@ export async function POST(request: Request) {
 		return new Response(null, { status: 400 });
 	}
 
+	console.log(`[DEBUG]: Revalidate tag ${tag}`);
 	revalidateTag(tag);
 
 	return new Response(null, { status: 200 });

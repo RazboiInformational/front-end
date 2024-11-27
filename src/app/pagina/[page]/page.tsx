@@ -7,6 +7,8 @@ type Args = {
 	}>;
 };
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
 	const { totalDocs } = await getTotalLinks();
 
