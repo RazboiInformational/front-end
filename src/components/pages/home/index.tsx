@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import {CustomLink} from './link';
+
 import { notFound } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -64,13 +66,7 @@ export default async function HomePage({ page }: Args) {
 						{(links.docs || []).map((doc) => (
 							<TableRow key={doc.id}>
 								<TableHead>
-									<a
-										href={doc.url}
-										target='_blank'
-										rel='noopener nofollow noreferrer'
-									>
-										{doc.url}
-									</a>
+									<CustomLink doc={doc} />
 								</TableHead>
 								<TableHead className='text-right'>
 									{new Date(doc.createdAt).toLocaleString()}
