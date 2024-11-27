@@ -50,7 +50,7 @@ export default async function HomePage({ page }: Args) {
 					</div>
 				</div>
 			</div>
-			<div className='mx-auto w-full max-w-[800px] mt-20'>
+			<div className='mx-auto w-full max-w-[800px] my-20'>
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -67,7 +67,7 @@ export default async function HomePage({ page }: Args) {
 									<a
 										href={doc.url}
 										target='_blank'
-										rel='noopener nofollow'
+										rel='noopener nofollow noreferrer'
 									>
 										{doc.url}
 									</a>
